@@ -5,7 +5,10 @@ from typing import List
 from . import crud, models, schemas
 from .database import engine, get_db
 
-models.Base.metadata.create_all(bind=engine)
+import os
+
+if os.getenv("TESTING") != "true":
+    models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Todo API",
